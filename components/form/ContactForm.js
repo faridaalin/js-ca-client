@@ -13,6 +13,7 @@ import contactSchema from './validationSchema/contactSchema';
 import ChakraTextera from './ChakraTextera';
 import ChakraInput from './ChakraInput';
 import ChakraCheckbox from './ChakraCheckbox';
+import showToast from '../../utils/showToast';
 
 const initialFormData = {
   firstname: '',
@@ -27,17 +28,6 @@ const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const showToast = (position, title, msg, status) => {
-    return toast({
-      position: position,
-      title: title,
-      description: msg,
-      status: status,
-      duration: 5000,
-      isClosable: true,
-    });
-  };
-
   const onSubmit = async (values, onSubmitProps) => {
     setIsLoading(true);
 
@@ -47,7 +37,13 @@ const ContactForm = () => {
       if (res.status === 200) {
         setIsLoading(false);
         onSubmitProps.resetForm();
-        showToast('top', 'Success!', 'Your message has been sent.', 'success');
+        showToast(
+          toast,
+          'top',
+          'Success!',
+          'Your message has been sent.',
+          'success'
+        );
       }
     } catch (error) {
       if (error.response && error.response.status) {
@@ -56,6 +52,7 @@ const ContactForm = () => {
         }
       } else {
         return showToast(
+          toast,
           'top',
           'Error!',
           'Something went wrong, please try again later.',
