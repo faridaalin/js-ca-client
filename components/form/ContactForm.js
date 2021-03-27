@@ -42,10 +42,7 @@ const ContactForm = () => {
     setIsLoading(true);
 
     try {
-      const res = await axios.post(
-        'https://js-ca-backend.herokuapp.com/contacts',
-        values
-      );
+      const res = await axios.post('/api/sendmessage', values);
 
       if (res.status === 200) {
         setIsLoading(false);
