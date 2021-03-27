@@ -1,0 +1,26 @@
+{
+  "name": "js-course-assignment",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.12",
+    "@chakra-ui/icons": "^1.0.7",
+    "@chakra-ui/react": "^1.4.1",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "axios": "^0.21.1",
+    "formik": "^2.2.6",
+    "framer-motion": "^4",
+    "graphql": "^15.5.0",
+    "next": "10.0.9",
+    "qs": "^6.10.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "yup": "^0.32.9"
+  }
+}
