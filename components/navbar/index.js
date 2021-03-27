@@ -1,10 +1,8 @@
 import { Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Flex, Spacer, Box, Heading, Container } from '@chakra-ui/react';
-
 import LogoutButton from '../buttons/LogoutButton';
 import { useAuth } from '../../context/auth';
-
 import styles from '../../styles/Navbar.module.css';
 import ActiveLink from '../activeLink/';
 

@@ -12,23 +12,13 @@ import { USER_TOKEN } from '../../config/constants';
 import { loginSchema } from './validationSchema/loginSchema';
 import ChakraInput from './ChakraInput';
 import axios from 'axios';
+import showToast from '../../utils/showToast';
 
 const LoginForm = () => {
   const [, setAuthToken] = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const toast = useToast();
-
-  const showToast = (position, title, msg, status) => {
-    return toast({
-      position: position,
-      title: title,
-      description: msg,
-      status: status,
-      duration: 5000,
-      isClosable: true,
-    });
-  };
 
   const onSubmit = async (values, onSubmitProps) => {
     setIsLoading(true);
@@ -57,6 +47,7 @@ const LoginForm = () => {
         }
         if (error.response.status === 400) {
           return showToast(
+            toast,
             'top',
             'Error!',
             'Email or password is invalid',
@@ -65,6 +56,7 @@ const LoginForm = () => {
         }
       } else {
         return showToast(
+          toast,
           'top',
           'Error!',
           'Something went wrong, please try again later.',

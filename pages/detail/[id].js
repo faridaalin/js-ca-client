@@ -14,7 +14,7 @@ const foodtruck = ({ data }) => {
 
 export default foodtruck;
 
-export const getStaticPaths = async (props) => {
+export const getStaticPaths = async () => {
   const { data } = await client.query({
     query: GET_ALL_FOODTRUCKS,
   });

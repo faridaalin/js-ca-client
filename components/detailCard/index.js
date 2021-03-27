@@ -1,16 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Box,
-  Badge,
-  HStack,
-  Flex,
-  Heading,
-  Text,
-  Container,
-  Button,
-  Spacer,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Container, Button } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
 const DetailCard = ({ data }) => {

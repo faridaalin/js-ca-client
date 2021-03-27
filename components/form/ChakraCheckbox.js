@@ -20,7 +20,6 @@ const ChakraCheckbox = ({ name, type, title }) => {
         },
         { passive: false }
       );
-      cleanup;
     };
   }, []);
   return (

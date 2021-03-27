@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, Badge, HStack, Text } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 import client from '../lib/apollo-client';
 import { GET_ALL_FOODTRUCKS } from '../graphql/queries';
 import Card from '../components/card';

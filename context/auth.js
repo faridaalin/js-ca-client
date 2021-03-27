@@ -8,7 +8,6 @@ const getAuth = () => {
     typeof window !== 'undefined'
       ? JSON.parse(localStorage.getItem(USER_TOKEN))
       : null;
-
   return currentuser;
 };
 
