@@ -2,7 +2,6 @@ import client from '../../lib/apollo-client';
 import { SEND_MESSAGE } from '../../graphql/mutations';
 
 export default async (req, res) => {
-  console.log('req.body:😈', req.body);
   if (!req.body) {
     return res.status(404).send({ error: 'Missing fields' });
   }

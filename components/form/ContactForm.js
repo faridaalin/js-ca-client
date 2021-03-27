@@ -39,11 +39,13 @@ const ContactForm = () => {
   };
 
   const onSubmit = async (values, onSubmitProps) => {
-    console.log('values', values);
     setIsLoading(true);
 
     try {
-      const res = await axios.post('/api/sendmessage', values);
+      const res = await axios.post(
+        'https://js-ca-backend.herokuapp.com/contacts',
+        values
+      );
 
       if (res.status === 200) {
         setIsLoading(false);
