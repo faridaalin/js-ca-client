@@ -35,6 +35,12 @@ const Navbar = () => {
             )}
             <ActiveLink href='/contact'>Contact</ActiveLink>
           </Box>
+          <Box>
+            <ActiveLink href='/favourites'>Favourites</ActiveLink>
+          </Box>
+          <Box>
+            <ActiveLink href='/'>Home</ActiveLink>
+          </Box>
         </Flex>
       </Container>
     </Flex>

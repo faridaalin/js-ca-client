@@ -48,6 +48,7 @@ const ContactForm = () => {
     } catch (error) {
       if (error.response && error.response.status) {
         if (error.response.status === 404) {
+          
           return showToast('top', 'Error!', error.response.statusText, 'error');
         }
       } else {

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import Image from 'next/image';
 import {
@@ -12,10 +13,24 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
-
+import { useFavourites } from '../../context/favs';
 import styles from '../../styles/Card.module.css';
 
 const Card = ({ foodtruck }) => {
+  const [checked, setChecked] = useState(false);
+  const [favourites, setFavourites] = useFavourites();
+
+  useEffect(() => {
+    if (checked) {
+      setFavourites((prev) => [...prev, foodtruck]);
+    } else {
+      setFavourites(favourites.filter((truck) => truck.id !== foodtruck.id));
+    }
+  }, [checked]);
+
+  console.log('checked:', checked);
+  console.log('favourites CARD:', favourites);
+
   return (
     <Box
       maxW='sm'
@@ -85,7 +100,12 @@ const Card = ({ foodtruck }) => {
           >
             Add to favourites list?
           </FormLabel>
-          <Switch id='favourite-resturant' colorScheme='pink' />
+          <Switch
+            id='favourite-resturant'
+            colorScheme='pink'
+            isChecked={checked}
+            onChange={() => setChecked(!checked)}
+          />
         </FormControl>
 
         <Box mt='4'>
