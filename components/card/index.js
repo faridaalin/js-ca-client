@@ -14,32 +14,25 @@ import {
 } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import styles from '../../styles/Card.module.css';
-import { FAVOURITES } from '../../config/constants';
 import isChecked from '../../lib/isChecked';
 import { useFavs } from '../../context/favsContext';
 
 const Card = ({ foodtruck }) => {
   const [checked, setChecked] = useState(false);
-  const [, setFavourites] = useFavs();
+  const [favourites, setFavourites] = useFavs();
 
   useEffect(() => {
-    const localItem = JSON.parse(localStorage.getItem(FAVOURITES)) || [];
-    setFavourites(localItem);
+    setFavourites({ type: 'saved' });
   }, []);
   useEffect(() => {
     setChecked(isChecked(foodtruck));
   }, []);
 
-  const toggleFav = (revState) => {
-    const localItem = JSON.parse(localStorage.getItem(FAVOURITES)) || [];
-    if (revState === false) {
-      const newList = [...localItem, foodtruck];
-      localStorage.setItem(FAVOURITES, JSON.stringify(newList));
-      setFavourites(newList);
+  const toggleFav = (prevState) => {
+    if (prevState === false) {
+      setFavourites({ type: 'add', payload: foodtruck });
     } else {
-      const updated = localItem.filter((truck) => truck.id !== foodtruck.id);
-      localStorage.setItem(FAVOURITES, JSON.stringify(updated));
-      setFavourites(updated);
+      setFavourites({ type: 'delete', payload: foodtruck.id });
     }
   };
 
