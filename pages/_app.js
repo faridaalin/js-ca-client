@@ -1,16 +1,16 @@
 import { AuthProvider } from '../context/auth';
-import { FavProvider } from '../context/favs';
+import { FavsProvider } from '../context/favsContext';
 import { ChakraProvider } from '@chakra-ui/react';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <FavProvider>
+      <FavsProvider>
         <ChakraProvider>
           <Component {...pageProps} />
         </ChakraProvider>
-      </FavProvider>
+      </FavsProvider>
     </AuthProvider>
   );
 }

@@ -13,23 +13,35 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
-import { useFavourites } from '../../context/favs';
 import styles from '../../styles/Card.module.css';
+import { FAVOURITES } from '../../config/constants';
+import isChecked from '../../lib/isChecked';
+import { useFavs } from '../../context/favsContext';
 
 const Card = ({ foodtruck }) => {
   const [checked, setChecked] = useState(false);
-  const [favourites, setFavourites] = useFavourites();
+  const [, setFavourites] = useFavs();
 
   useEffect(() => {
-    if (checked) {
-      setFavourites((prev) => [...prev, foodtruck]);
-    } else {
-      setFavourites(favourites.filter((truck) => truck.id !== foodtruck.id));
-    }
-  }, [checked]);
+    const localItem = JSON.parse(localStorage.getItem(FAVOURITES)) || [];
+    setFavourites(localItem);
+  }, []);
+  useEffect(() => {
+    setChecked(isChecked(foodtruck));
+  }, []);
 
-  console.log('checked:', checked);
-  console.log('favourites CARD:', favourites);
+  const toggleFav = (revState) => {
+    const localItem = JSON.parse(localStorage.getItem(FAVOURITES)) || [];
+    if (revState === false) {
+      const newList = [...localItem, foodtruck];
+      localStorage.setItem(FAVOURITES, JSON.stringify(newList));
+      setFavourites(newList);
+    } else {
+      const updated = localItem.filter((truck) => truck.id !== foodtruck.id);
+      localStorage.setItem(FAVOURITES, JSON.stringify(updated));
+      setFavourites(updated);
+    }
+  };
 
   return (
     <Box
@@ -104,7 +116,12 @@ const Card = ({ foodtruck }) => {
             id='favourite-resturant'
             colorScheme='pink'
             isChecked={checked}
-            onChange={() => setChecked(!checked)}
+            onChange={(e) => {
+              setChecked((prev) => {
+                toggleFav(prev);
+                return !prev;
+              });
+            }}
           />
         </FormControl>
 
