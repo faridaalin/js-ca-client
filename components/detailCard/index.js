@@ -16,8 +16,8 @@ const DetailCard = ({ data }) => {
           />
         </Box>
 
-        <Container mt={[6, null, 0]} maxW='container.md'>
-          <Box ml='6' w='100%'>
+        <Container mt={[6, null, 0]} maxW='container.xl'>
+          <Box px={[null, null, 2, 8]} w='100%'>
             <Heading as='h2' size='md' pb='2'>
               {data.name}
             </Heading>

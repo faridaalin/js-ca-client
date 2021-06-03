@@ -6,7 +6,7 @@ import DetailCard from '../../components/detailCard';
 
 const foodtruck = ({ data }) => {
   return (
-    <Layout title='Details'>
+    <Layout title={data.name}>
       <DetailCard data={data} />
     </Layout>
   );
