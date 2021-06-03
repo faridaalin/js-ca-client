@@ -37,22 +37,15 @@ const Home = ({ foodtrucks }) => {
 
   const handleFilter = (filteredWords) => {
     let latestArray = [];
-    console.log('sortType.length > 0', sortType.length > 0);
-    let trucksToFilter = sortType.length > 0 ? data : currentFoodtrucks;
 
     if (sortType.length > 0) {
-      console.log('Filter the sorted array');
-      console.log('sortType', sortType);
       let current = [];
       [...currentFoodtrucks].filter((truck) => {
         truck.categories.filter((category) => {
           if (filteredWords) {
             return filteredWords.filter((word) => {
-              console.log('category', category.name);
-              console.log('word', word);
               if (category.name === word) {
                 current.push(truck);
-                console.log('truck:', truck);
                 return truck;
               }
             });
@@ -64,17 +57,11 @@ const Home = ({ foodtrucks }) => {
       } else {
         latestArray = current.sort((a, b) => a.ratings - b.ratings);
       }
-
-      console.log('current', current);
-      console.log('latestArray', latestArray);
     } else {
-      console.log('Filter the orginal array');
       [...currentFoodtrucks].filter((truck) =>
         truck.categories.filter((category) => {
           if (filteredWords) {
             return filteredWords.filter((word) => {
-              console.log('category', category.name);
-              console.log('word', word);
               if (category.name === word) {
                 latestArray.push(truck);
                 return truck;
@@ -89,34 +76,23 @@ const Home = ({ foodtrucks }) => {
         return latestArray.find((a) => a.id === id);
       }
     );
-    console.log('uniqueTrucks 😀', uniqueTrucks);
+
     setData(uniqueTrucks.length === 0 ? currentFoodtrucks : uniqueTrucks);
     setFiltered(uniqueTrucks);
   };
 
   useEffect(() => {
-    const sortArray = () => {
-      let sorted;
-
+    const sortFoodtrucks = () => {
       let trucksToSort =
         filtered.length === 0 ? [...currentFoodtrucks] : [...filtered];
-      console.log('----', filtered.length);
-      console.log('trucksToSort', trucksToSort);
       if (sortType === 'desc') {
-        sorted = trucksToSort.sort((a, b) => b.ratings - a.ratings);
-        setData(sorted);
+        setData(trucksToSort.sort((a, b) => b.ratings - a.ratings));
       } else {
-        sorted = trucksToSort.sort((a, b) => a.ratings - b.ratings);
-
-        setData(sorted);
+        setData(trucksToSort.sort((a, b) => a.ratings - b.ratings));
       }
     };
-    console.log(
-      ' [...filtered].length > 0 ? [...filtered] : [...currentFoodtrucks]',
-      [...filtered].length > 0 ? 'filtered' : 'currentFoodtrucks'
-    );
-    console.log(' [...filtered].length', [...filtered].length);
-    sortArray(sortType);
+
+    sortFoodtrucks();
   }, [sortType]);
 
   useEffect(() => {
@@ -125,10 +101,10 @@ const Home = ({ foodtrucks }) => {
 
   return (
     <Layout title='Home'>
-      <Box>
+      <Box mb='4'>
         <HStack spacing='24px'>
           <Menu closeOnSelect={false}>
-            <MenuButton as={Button} colorScheme='blue'>
+            <MenuButton as={Button} colorScheme='pink'>
               Filter
             </MenuButton>
             <MenuList minWidth='240px'>
@@ -144,8 +120,8 @@ const Home = ({ foodtrucks }) => {
             </MenuList>
           </Menu>
 
-          <Menu closeOnSelect={false}>
-            <MenuButton as={Button} colorScheme='blue'>
+          <Menu closeOnSelect={true}>
+            <MenuButton as={Button} colorScheme='pink'>
               Sort
             </MenuButton>
             <MenuList minWidth='240px'>
@@ -159,7 +135,15 @@ const Home = ({ foodtrucks }) => {
               </MenuOptionGroup>
             </MenuList>
           </Menu>
-          <Button>Reset</Button>
+          <Button
+            mt='8'
+            onClick={() => {
+              setFiltered(currentFoodtrucks);
+              setData(currentFoodtrucks);
+            }}
+          >
+            Reset
+          </Button>
         </HStack>
       </Box>
 
