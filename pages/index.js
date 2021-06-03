@@ -75,10 +75,6 @@ const Home = ({ foodtrucks }) => {
     sortFoodtrucks();
   }, [sortType]);
 
-  useEffect(() => {
-    handleFilter();
-  }, []);
-
   return (
     <Layout title='Home'>
       <Box mb='4'>
@@ -94,7 +90,7 @@ const Home = ({ foodtrucks }) => {
                 onChange={(e) => handleFilter(e)}
               >
                 {uniqueCategories.map((category, i) => (
-                  <MenuItemOption key={i} value={category}>
+                  <MenuItemOption key={i} value={category} isChecked={false}>
                     {category}
                   </MenuItemOption>
                 ))}
@@ -122,6 +118,7 @@ const Home = ({ foodtrucks }) => {
             onClick={() => {
               setFiltered(currentFoodtrucks);
               setData(currentFoodtrucks);
+              setFiltered([]);
             }}
           >
             Reset
