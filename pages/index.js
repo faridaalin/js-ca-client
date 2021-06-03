@@ -11,6 +11,7 @@ import {
   HStack,
   Box,
 } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import client from '../lib/apollo-client';
 import { GET_ALL_FOODTRUCKS } from '../graphql/queries';
 import Card from '../components/card';
@@ -84,7 +85,7 @@ const Home = ({ foodtrucks }) => {
         <HStack spacing='24px'>
           <Menu closeOnSelect={false}>
             <MenuButton as={Button} colorScheme='pink'>
-              Filter
+              Filter <ChevronDownIcon w={6} h={6} />
             </MenuButton>
             <MenuList minWidth='240px'>
               <MenuOptionGroup
@@ -92,8 +93,10 @@ const Home = ({ foodtrucks }) => {
                 type='checkbox'
                 onChange={(e) => handleFilter(e)}
               >
-                {uniqueCategories.map((category) => (
-                  <MenuItemOption value={category}>{category}</MenuItemOption>
+                {uniqueCategories.map((category, i) => (
+                  <MenuItemOption key={i} value={category}>
+                    {category}
+                  </MenuItemOption>
                 ))}
               </MenuOptionGroup>
             </MenuList>
@@ -101,7 +104,7 @@ const Home = ({ foodtrucks }) => {
 
           <Menu closeOnSelect={true}>
             <MenuButton as={Button} colorScheme='pink'>
-              Sort
+              Sort <ChevronDownIcon w={6} h={6} />
             </MenuButton>
             <MenuList minWidth='240px'>
               <MenuOptionGroup

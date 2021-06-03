@@ -1,6 +1,6 @@
 import { Grid, GridItem, Container } from '@chakra-ui/react';
-
-import Navbar from '../navbar';
+// import Navbar from '../navbar';
+import Navbar from '../navigationHeader';
 import Header from '../header';
 import Footer from '../footer';
 

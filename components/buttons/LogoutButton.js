@@ -13,7 +13,12 @@ const LogoutButton = () => {
   };
 
   return (
-    <Button type='button' onClick={signOut}>
+    <Button
+      type='button'
+      colorScheme='pink'
+      variant='outline'
+      onClick={signOut}
+    >
       Sign out
     </Button>
   );

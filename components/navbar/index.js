@@ -1,6 +1,13 @@
 import { Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { Flex, Spacer, Box, Heading, Container } from '@chakra-ui/react';
+import {
+  Flex,
+  Spacer,
+  Box,
+  Heading,
+  Container,
+  Button,
+} from '@chakra-ui/react';
 import LogoutButton from '../buttons/LogoutButton';
 import { useAuth } from '../../context/auth';
 import styles from '../../styles/Navbar.module.css';
@@ -33,12 +40,11 @@ const Navbar = () => {
             ) : (
               <ActiveLink href='/login'>Log in</ActiveLink>
             )}
+
             <ActiveLink href='/contact'>Contact</ActiveLink>
-          </Box>
-          <Box>
+
             <ActiveLink href='/favourites'>Favourites</ActiveLink>
-          </Box>
-          <Box>
+
             <ActiveLink href='/'>Home</ActiveLink>
           </Box>
         </Flex>
