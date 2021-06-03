@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Box, Flex, Text, Button, Stack } from '@chakra-ui/react';
+import { Center, Box, Flex, Text, Button, Stack } from '@chakra-ui/react';
 import Logo from '../logo';
 import { useAuth } from '../../context/auth';
 import ActiveLink from '../activeLink';
@@ -12,10 +12,7 @@ const NavBar = (props) => {
 
   return (
     <NavBarContainer {...props}>
-      <Logo
-        w='100px'
-        color={['white', 'white', 'primary.500', 'primary.500']}
-      />
+      <Logo w='200px' />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -54,8 +51,12 @@ const MenuToggle = ({ toggle, isOpen }) => {
 
 const MenuItem = ({ children, isLast, to = '/', ...rest }) => {
   return (
-    <ActiveLink href={to} color='pink.500'>
-      <Text display='block' {...rest}>
+    <ActiveLink href={to}>
+      <Text
+        display='block'
+        {...rest}
+        color={['gray.800', 'gray.800', 'pink.800', 'pink.800']}
+      >
         {children}
       </Text>
     </ActiveLink>
@@ -79,20 +80,6 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to='/'>Home</MenuItem>
         <MenuItem to='/favourites'>Favourites </MenuItem>
         <MenuItem to='/contact'>Contact </MenuItem>
-
-        <MenuItem to='/signup' isLast>
-          <Button
-            size='sm'
-            rounded='md'
-            // color={['primary.500', 'primary.500', 'white', 'white']}
-            bg={['white', 'white', 'primary.500', 'primary.500']}
-            _hover={{
-              bg: ['primary.100', 'primary.100', 'primary.600', 'primary.600'],
-            }}
-          >
-            Create Account
-          </Button>
-        </MenuItem>
         {authToken ? <LogoutButton /> : <MenuItem to='/login'>Login </MenuItem>}
       </Stack>
     </Box>
@@ -109,8 +96,8 @@ const NavBarContainer = ({ children, ...props }) => {
       w='100%'
       mb={8}
       p={8}
-      bg={['primary.500', 'primary.500', 'transparent', 'transparent']}
-      color={['white', 'white', 'primary.700', 'primary.700']}
+      bg={['pink.500', 'pink.500', 'transparent', 'transparent']}
+      color={['black', 'black', 'pink.700', 'pink.700']}
       {...props}
     >
       {children}

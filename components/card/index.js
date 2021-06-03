@@ -43,6 +43,7 @@ const Card = ({ foodtruck }) => {
       borderRadius='lg'
       overflow='hidden'
       className={styles.card}
+      boxShadow='sm'
     >
       <Box position='relative' w='100%' h={200}>
         <Image

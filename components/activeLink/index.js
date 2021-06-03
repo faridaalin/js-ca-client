@@ -16,8 +16,8 @@ const ActiveLink = ({ href, router, children }) => {
       <Link
         color='pink.700'
         bg={isCurrentPath ? 'pink.50' : ''}
+        rounded='md'
         p='2'
-        mr='auto'
         fontSize='0.8rem'
         className={styles.navItem}
       >
