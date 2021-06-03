@@ -15,6 +15,7 @@ import client from '../lib/apollo-client';
 import { GET_ALL_FOODTRUCKS } from '../graphql/queries';
 import Card from '../components/card';
 import Layout from '../components/layout';
+import { filterFoodtruck } from '../lib/filterFoodtruck';
 
 const Home = ({ foodtrucks }) => {
   const currentFoodtrucks = foodtrucks ? foodtrucks : [];
@@ -40,36 +41,14 @@ const Home = ({ foodtrucks }) => {
 
     if (sortType.length > 0) {
       let current = [];
-      [...currentFoodtrucks].filter((truck) => {
-        truck.categories.filter((category) => {
-          if (filteredWords) {
-            return filteredWords.filter((word) => {
-              if (category.name === word) {
-                current.push(truck);
-                return truck;
-              }
-            });
-          }
-        });
-      });
+      current = filterFoodtruck(currentFoodtrucks, filteredWords);
       if (sortType === 'desc') {
         latestArray = current.sort((a, b) => b.ratings - a.ratings);
       } else {
         latestArray = current.sort((a, b) => a.ratings - b.ratings);
       }
     } else {
-      [...currentFoodtrucks].filter((truck) =>
-        truck.categories.filter((category) => {
-          if (filteredWords) {
-            return filteredWords.filter((word) => {
-              if (category.name === word) {
-                latestArray.push(truck);
-                return truck;
-              }
-            });
-          }
-        })
-      );
+      latestArray = filterFoodtruck(currentFoodtrucks, filteredWords);
     }
     const uniqueTrucks = Array.from(new Set(latestArray.map((a) => a.id))).map(
       (id) => {
