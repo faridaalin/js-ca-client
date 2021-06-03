@@ -15,7 +15,7 @@ const GET_ALL_FOODTRUCKS = gql`
   }
 `;
 const GET_FOODTRUCK = gql`
-  query($id: ID!) {
+  query ($id: ID!) {
     foodtruck(id: $id) {
       id
       name

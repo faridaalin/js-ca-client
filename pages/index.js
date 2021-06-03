@@ -10,6 +10,7 @@ import {
   Button,
   HStack,
   Box,
+  useToast,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import client from '../lib/apollo-client';
@@ -17,12 +18,14 @@ import { GET_ALL_FOODTRUCKS } from '../graphql/queries';
 import Card from '../components/card';
 import Layout from '../components/layout';
 import { filterFoodtruck } from '../lib/filterFoodtruck';
+import showToast from '../utils/showToast';
 
 const Home = ({ foodtrucks }) => {
   const currentFoodtrucks = foodtrucks ? foodtrucks : [];
   const [data, setData] = useState(currentFoodtrucks);
   const [sortType, setSortType] = useState('');
   const [filtered, setFiltered] = useState([]);
+  const toast = useToast();
 
   const requests = [...currentFoodtrucks];
   function flatten(arr) {
@@ -74,6 +77,21 @@ const Home = ({ foodtrucks }) => {
 
     sortFoodtrucks();
   }, [sortType]);
+
+  if (!foodtrucks) {
+    return (
+      <Layout title='details'>
+        We don't have any foodtrucks at the moment.
+        {showToast(
+          toast,
+          'top',
+          'Error!',
+          'Something went wrong, please try again later.',
+          'error'
+        )}
+      </Layout>
+    );
+  }
 
   return (
     <Layout title='Home'>
@@ -149,13 +167,18 @@ export const getStaticProps = async () => {
   try {
     const { data } = await client.query({ query: GET_ALL_FOODTRUCKS });
     foodtrucks = data.foodtrucks;
+    return {
+      props: {
+        foodtrucks,
+      },
+    };
   } catch (err) {
-    console.error(err);
+    if (err.response && err.response.data) {
+      return {
+        props: { data: err.response.data },
+      };
+    } else {
+      return { props: { foodtruck: [] } };
+    }
   }
-
-  return {
-    props: {
-      foodtrucks,
-    },
-  };
 };
