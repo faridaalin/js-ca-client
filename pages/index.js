@@ -20,7 +20,8 @@ import Layout from '../components/layout';
 import { filterFoodtruck } from '../lib/filterFoodtruck';
 import showToast from '../utils/showToast';
 
-const Home = ({ foodtrucks }) => {
+const Home = (props) => {
+  const { foodtrucks, error } = props;
   const currentFoodtrucks = foodtrucks ? foodtrucks : [];
   const [data, setData] = useState(currentFoodtrucks);
   const [sortType, setSortType] = useState('');
@@ -78,17 +79,12 @@ const Home = ({ foodtrucks }) => {
     sortFoodtrucks();
   }, [sortType]);
 
-  if (!foodtrucks) {
+  if (error || !foodtrucks) {
+    const msg = error ? error : 'Something went wrong, please try again later.';
     return (
-      <Layout title='details'>
-        We don't have any foodtrucks at the moment.
-        {showToast(
-          toast,
-          'top',
-          'Error!',
-          'Something went wrong, please try again later.',
-          'error'
-        )}
+      <Layout title='Home'>
+        {msg}
+        {showToast(toast, 'top', 'Error!', msg, 'error')}
       </Layout>
     );
   }
@@ -173,9 +169,14 @@ export const getStaticProps = async () => {
       },
     };
   } catch (err) {
+    console.log('err🔥', err);
+    console.log('MSG🔥1', err.message);
+    if (err && err.message) {
+      return { props: { error: err.message } };
+    }
     if (err.response && err.response.data) {
       return {
-        props: { data: err.response.data },
+        props: { error: err.response.data },
       };
     } else {
       return { props: { foodtruck: [] } };

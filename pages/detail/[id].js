@@ -5,19 +5,17 @@ import Layout from '../../components/layout';
 import DetailCard from '../../components/detailCard';
 import showToast from '../../utils/showToast';
 
-const foodtruck = ({ data }) => {
+const foodtruck = (props) => {
+  const { data, error } = props;
+
   const toast = useToast();
-  if (!data) {
+  if (error || !data) {
+    const msg = error ? error : 'Something went wrong, please try again later.';
+
     return (
       <Layout title='details'>
-        This foodtruck is currently not available.
-        {showToast(
-          toast,
-          'top',
-          'Error!',
-          'Something went wrong, please try again later.',
-          'error'
-        )}
+        {msg}
+        {showToast(toast, 'top', 'Error!', msg, 'error')}
       </Layout>
     );
   }
@@ -42,6 +40,8 @@ export const getStaticPaths = async () => {
 
     return { paths, fallback: true };
   } catch (err) {
+    console.log('err🔥', err);
+    console.log('MSG🔥3', err.message);
     return {
       props: { data: null },
     };
@@ -58,8 +58,11 @@ export const getStaticProps = async ({ params }) => {
 
     foodtruck = data.foodtruck;
   } catch (err) {
+    if (err && err.message) {
+      return { props: { error: err.message } };
+    }
     return {
-      props: { data: null },
+      props: { error: null },
     };
   }
   return {
