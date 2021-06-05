@@ -80,7 +80,14 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to='/'>Home</MenuItem>
         <MenuItem to='/favourites'>Favourites </MenuItem>
         <MenuItem to='/contact'>Contact </MenuItem>
-        {authToken ? <LogoutButton /> : <MenuItem to='/login'>Login </MenuItem>}
+        {authToken ? (
+          <>
+            <MenuItem to='/admin'>Admin </MenuItem>
+            <LogoutButton />
+          </>
+        ) : (
+          <MenuItem to='/login'>Login </MenuItem>
+        )}
       </Stack>
     </Box>
   );
